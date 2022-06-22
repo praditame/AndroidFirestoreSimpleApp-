@@ -15,7 +15,9 @@
         tools:targetApi="31">
         <activity
             android:name=".InputActivity"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

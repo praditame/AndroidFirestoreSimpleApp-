@@ -2,37 +2,47 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InputActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textDeskripsi"
+    <EditText
+        android:inputType="text"
+        android:id="@+id/textNama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:boxBackgroundColor="@color/white"
-        app:boxBackgroundMode="outline"
+        android:autofillHints="Nama"
+        android:hint="@string/nama"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/release_date"
-            android:inputType="text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
+    <!-- Circular progress indicator -->
     <Button
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="32dp"
         android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textDeskripsi" />
+        app:layout_constraintTop_toBottomOf="@+id/textNama" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="198dp"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubmit"
+        app:layout_constraintVertical_bias="0.128" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
