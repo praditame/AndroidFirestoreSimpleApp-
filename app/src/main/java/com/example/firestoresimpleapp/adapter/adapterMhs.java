@@ -1,5 +1,6 @@
 package com.example.firestoresimpleapp.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firestoresimpleapp.R;
 import com.example.firestoresimpleapp.model.modelMhs;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +20,23 @@ import java.util.List;
 public class adapterMhs extends RecyclerView.Adapter<adapterMhs.MyHolder> {
     private Context context;
     private List<modelMhs> list;
+    private Dialog dialog;
 
     public adapterMhs(Context context, List<modelMhs> list) {
         this.context = context;
         this.list = list;
+    }
+
+   public interface Dialog{
+        void onLongClick(int i);
+   }
+
+    public void setDialog(Dialog dialog) {
+        this.dialog = dialog;
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     @NonNull
@@ -48,6 +63,13 @@ public class adapterMhs extends RecyclerView.Adapter<adapterMhs.MyHolder> {
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             output = itemView.findViewById(R.id.textView);
+
+            itemView.setOnLongClickListener(view -> {
+                if (dialog!=null){
+                    dialog.onLongClick(getLayoutPosition());
+                }
+                return true;
+            });
 
         }
     }

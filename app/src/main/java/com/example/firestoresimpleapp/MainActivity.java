@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import com.example.firestoresimpleapp.adapter.adapterMhs;
 import com.example.firestoresimpleapp.model.modelMhs;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentChange;
@@ -50,11 +53,42 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         list = new ArrayList<>();
         adapter = new adapterMhs(MainActivity.this, list);
+        adapter.setDialog((int pos) -> {
+            final CharSequence[] dialogItem = {"Edit", "Hapus"};
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setItems(dialogItem, (dialogInterface, a) -> {
+                switch (a){
+                    case 0:
+
+
+                        break;
+                    case 1:
+                        deleteData(list.get(pos).getId());
+                        break;
+                }
+
+            });
+            builder.show();
+        });
         rv.setAdapter(adapter);
 
-//        displayData();
-
         fab.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, InputActivity.class)));
+
+        displayData();
+    }
+
+    private void deleteData(String id) {
+
+        db.collection("mahasiswa").document(id)
+                .delete()
+                .addOnCompleteListener(task -> {
+                   if (!task.isSuccessful()){
+                       Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                   }
+
+                   displayData();
+                });
+
     }
 
     @Override
@@ -69,10 +103,12 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             model = new modelMhs(document.getString("name"));
+                            model.setId(document.getId());
                             list.add(model);
 
                         }
                         adapter.notifyDataSetChanged();
+
                     } else {
                         Log.w(TAG, "Error getting documents.", task.getException());
                     }
