@@ -5,11 +5,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.firestoresimpleapp.R;
 import com.example.firestoresimpleapp.model.modelMhs;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -50,6 +52,7 @@ public class adapterMhs extends RecyclerView.Adapter<adapterMhs.MyHolder> {
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         modelMhs m = list.get(position);
          holder.output.setText(m.getNama());
+        Glide.with(context).load(list.get(position).getFoto()).into(holder.foto);
 
     }
 
@@ -60,9 +63,11 @@ public class adapterMhs extends RecyclerView.Adapter<adapterMhs.MyHolder> {
 
     public class MyHolder extends RecyclerView.ViewHolder {
         TextView output;
+        ImageView foto;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             output = itemView.findViewById(R.id.textView);
+            foto = itemView.findViewById(R.id.foto);
 
             itemView.setOnLongClickListener(view -> {
                 if (dialog!=null){

@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project-Mobile/AndroidFirestoreSimpleApp-/app/src/main/res/layout/activity_input.xml" value="0.1" />
+        <entry key="..\:/Project-Mobile/AndroidFirestoreSimpleApp-/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Project-Mobile/AndroidFirestoreSimpleApp-/app/src/main/res/layout/item_list.xml" value="0.20520833333333333" />
         <entry key="..\:/ProjectAndroid2022/p12/app/src/main/res/drawable/border.xml" value="0.1" />
         <entry key="..\:/ProjectAndroid2022/p12/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1855" />
         <entry key="..\:/ProjectAndroid2022/p12/app/src/main/res/layout/activity_input.xml" value="0.1" />

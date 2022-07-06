@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case 1:
-                        deleteData(list.get(pos).getId());
+                        deleteData(list.get(pos).getId(), list.get(pos).getFoto());
                         break;
                 }
 
@@ -77,16 +78,20 @@ public class MainActivity extends AppCompatActivity {
         displayData();
     }
 
-    private void deleteData(String id) {
+    private void deleteData(String id, String foto) {
 
         db.collection("mahasiswa").document(id)
                 .delete()
                 .addOnCompleteListener(task -> {
                    if (!task.isSuccessful()){
                        Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                   } else {
+                       FirebaseStorage.getInstance().getReferenceFromUrl(foto).delete().addOnCompleteListener(task1 -> {
+                           displayData();
+                       });
                    }
 
-                   displayData();
+
                 });
 
     }
@@ -102,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     list.clear();
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            model = new modelMhs(document.getString("name"));
+                            model = new modelMhs(document.getString("name"), document.getString("foto"));
                             model.setId(document.getId());
                             list.add(model);
 
